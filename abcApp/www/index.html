@@ -44,6 +44,36 @@
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
     <script type="text/javascript">
+	document.getElementById('offline-screen').style.height = document.body.clientHeight+'px';
+	document.addEventListener("deviceready", onDeviceReady, false);		
+	window.addEventListener("message", receiveMessage, false);
+			
+			function onDeviceReady() {
+				// Blanker on change				
+				document.addEventListener("online", doWhenOnline, false);
+				document.addEventListener("offline", doWhenOffline, false);
+				var networkState = navigator.connection.type;
+				
+				if(networkState == Connection.NONE) {
+					doWhenOffline();
+				}
+				else{
+					doWhenOnline();
+				}                				
+			}	
+			
+			function doWhenOnline(){
+				document.getElementById('offline-screen').style.display = 'none';
+			}
+			
+			function doWhenOffline(){				
+				document.getElementById('offline-screen').style.display = 'block';
+			}
+			
+			document.addEventListener("deviceready", onDeviceReady, false);  
+			function onDeviceReady() {
+               alert('device token000 = ');
+			}
         app.initialize();
     </script>
 </body>
